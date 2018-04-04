@@ -117,7 +117,7 @@ ooserror <- 1 - confMatrix$overall['Accuracy']
 
 ```
 
-As can be seen from the confusion matrix accuracy above, the accuracy of this model is very high. The out of sample error estimate for the model is only **`r ooserror`**. As we used a hold out data set instead of testing on the same data which was used for training, given the very low out of sample error estimate, we can conclude that the model is very robust and can be used for further predictions.
+As can be seen from the confusion matrix accuracy above, the accuracy of this model is very high. The **out of sample error** estimate for the model is only **`r ooserror`**. As we used a hold out data set instead of testing on the same data which was used for training, given the very low out of sample error estimate, we can conclude that the model is very robust and can be used for further predictions.
 
 ## Appendix
 
