@@ -123,7 +123,7 @@ $(document).ready(function () {
 
 <div id="executive-summary" class="section level2">
 <h2>Executive Summary</h2>
-<p>This project aims to predict the manner in which people exercise. Cross validation is used to split the training data into train and test sets to test and tune the model. The random forest algorithm is chosen to train the model as there are a large number of potential predictors and we don’t know much about the relationships between them. The out of sample error is determined by applying the trained random forest model on the hold out data set and the model is chosen if it provides a high prediction accuracy (more than 99%).</p>
+<p>This project aims to predict the manner in which people exercise. Cross validation is used to split the training data into train and test sets to test and tune the model. The random forest algorithm is chosen to train the model as there are a large number of potential predictors and we don’t know much about the relationships between them. The out of sample error is determined by applying the trained random forest model on the hold out data set (carved out separately from the training set and not used in training the model) and a model is chosen which provides a high prediction accuracy (more than 99%).</p>
 </div>
 <div id="exploratory-analysis" class="section level2">
 <h2>Exploratory Analysis</h2>
@@ -170,7 +170,7 @@ testData &lt;- exerciseData[-partition, ]</code></pre>
 <p>Since there are a large number of predictors, we can configure parallel processing to improve performance.</p>
 <pre class="r"><code>cluster &lt;- makeCluster(detectCores() - 1)
 registerDoParallel(cluster)</code></pre>
-<p>Now let us set up the train control object with the method as cross-validation. Also 5 folds seems to be a good number of folds to strike a balance between not having too many or too few folds.</p>
+<p>Now let us set up the train control object with the method as cross-validation. 5 folds seems to be a good number of folds to strike a balance between not having too many or too few folds.</p>
 <pre class="r"><code># setup the train control object with method cv and 5 folds
 controlObj &lt;- trainControl(method = &quot;cv&quot;, number = 5, allowParallel = TRUE)</code></pre>
 <p>Now that we have the train control object defined, let us train the model using random forest as the method and the train control object as input for modelling.</p>
@@ -191,7 +191,7 @@ registerDoSEQ()</code></pre>
 </div>
 <div id="model-performance" class="section level2">
 <h2>Model Performance</h2>
-<p>Let us see how the trained model performs by comparing its predictions with for the test set that we held out.</p>
+<p>Let us see how the trained model performs by comparing its predictions for the test set that we held out.</p>
 <pre class="r"><code>pred &lt;- predict(modFit, testData)
 
 # Check the accuracy of the prediction
@@ -209,7 +209,7 @@ ooserror &lt;- 1 - confMatrix$overall['Accuracy']</code></pre>
 <h2>Appendix</h2>
 <div id="dataset-exploration" class="section level3">
 <h3>Dataset Exploration</h3>
-<p>For the sake of brevity in the final report, the output of some of the commands in this section have been suppressed.</p>
+<p>For the sake of brevity in the final report, the output of the command in this section has been suppressed.</p>
 <pre class="r"><code>head(exerciseData)</code></pre>
 <p>From the output, it can be seen that there are some columns like obs, raw_timestamp_part_1, raw_timestamp_part_2, cvtd_timestamp which may not be relevant to predicting how well people exercise.</p>
 <p>Also there are many columns which seem to have predominantly NA columns. These NA columns will add little to no value to the prediction and can be dropped. Let us find the list of such columns.</p>

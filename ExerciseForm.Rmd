@@ -15,7 +15,7 @@ set.seed(100)
 
 ## Executive Summary
 
-This project aims to predict the manner in which people exercise. Cross validation is used to split the training data into train and test sets to test and tune the model. The random forest algorithm is chosen to train the model as there are a large number of potential predictors and we don't know much about the relationships between them. The out of sample error is determined by applying the trained random forest model on the hold out data set and the model is chosen if it provides a high prediction accuracy (more than 99%).   
+This project aims to predict the manner in which people exercise. Cross validation is used to split the training data into train and test sets to test and tune the model. The random forest algorithm is chosen to train the model as there are a large number of potential predictors and we don't know much about the relationships between them. The out of sample error is determined by applying the trained random forest model on the hold out data set (carved out separately from the training set and not used in training the model) and a model is chosen which provides a high prediction accuracy (more than 99%).   
 
 ## Exploratory Analysis
 
@@ -73,7 +73,7 @@ cluster <- makeCluster(detectCores() - 1)
 registerDoParallel(cluster)
 ```
 
-Now let us set up the train control object with the method as cross-validation. Also 5 folds seems to be a good number of folds to strike a balance between not having too many or too few folds.
+Now let us set up the train control object with the method as cross-validation. 5 folds seems to be a good number of folds to strike a balance between not having too many or too few folds.
 
 ```{r crossvalidationsetup}
 # setup the train control object with method cv and 5 folds
@@ -103,7 +103,7 @@ registerDoSEQ()
 
 ## Model Performance
 
-Let us see how the trained model performs by comparing its predictions with for the test set that we held out.
+Let us see how the trained model performs by comparing its predictions for the test set that we held out.
 
 ```{r prediction}
 pred <- predict(modFit, testData)
@@ -123,7 +123,7 @@ As can be seen from the confusion matrix accuracy above, the accuracy of this mo
 
 ### Dataset Exploration
 
-For the sake of brevity in the final report, the output of some of the commands in this section have been suppressed.
+For the sake of brevity in the final report, the output of the command in this section has been suppressed.
 
 ```{r exploration, results = "hide"}
 head(exerciseData)
